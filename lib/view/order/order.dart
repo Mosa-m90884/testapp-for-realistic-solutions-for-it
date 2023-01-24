@@ -62,7 +62,7 @@ class OrderPage extends StatelessWidget {
 }
 
 AppBar buildAppBar(BuildContext context) {
-  return AppBar(
+  return AppBar(automaticallyImplyLeading: false,
     title: Column(
       children: [
         Text(

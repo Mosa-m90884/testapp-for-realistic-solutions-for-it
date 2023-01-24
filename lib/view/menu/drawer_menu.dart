@@ -51,7 +51,7 @@ class _DrawerMenuState extends State<DrawerMenu> {
                 ),
                 const SizedBox(height: 10.0),
                 Container(
-                  height: 400,
+                  height: 200,
                   child: ListView(
                     children: [
                       InkWell(

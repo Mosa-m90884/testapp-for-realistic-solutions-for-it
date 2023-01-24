@@ -5,6 +5,12 @@ class ProductProvider with ChangeNotifier {
   var _products = <Product>[];
   var productResponse;
   List<Product> get products => _products;
+  int get index =>_index;
+  int _index=0;
+  changeIndex(int i){
+    _index=i;
+    notifyListeners();
+  }
 
   Future<void> getProducts() async {
     var response = await Api.getProducts();

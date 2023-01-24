@@ -18,7 +18,7 @@ class _CartState extends State<Cart> {
       child: Scaffold(
         appBar: AppBar(
           elevation: 0.0,
-          automaticallyImplyLeading: true,
+          automaticallyImplyLeading: false,
           backgroundColor: Colors.white,
           title: AppName(),
         ),

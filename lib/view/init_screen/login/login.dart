@@ -1,4 +1,5 @@
 import '../../../imports.dart';
+import '../Main.dart';
 
 class Login extends StatefulWidget {
   @override
@@ -62,7 +63,7 @@ class _LoginState extends State<Login> {
                   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
                   onPressed: () {
                     Provider.of<ProductProvider>(context,listen: false).getProducts();
-                    Navigator.push(context, MaterialPageRoute(builder: (_) => Home()));
+                    Navigator.push(context, MaterialPageRoute(builder: (_) => MainPage()));
                   },
                   child: TextBuilder(
                     text: 'Login',
