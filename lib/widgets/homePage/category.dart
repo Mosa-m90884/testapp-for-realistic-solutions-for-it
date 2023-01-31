@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:untitled1/imports.dart';
 
-Row buildCategory(String text, size, ThemeData themeData) {
+Row buildCategory(
+    String text, size, ThemeData themeData, BuildContext context) {
   return Row(
     mainAxisAlignment: MainAxisAlignment.spaceBetween,
     children: [
@@ -16,7 +18,7 @@ Row buildCategory(String text, size, ThemeData themeData) {
           style: GoogleFonts.poppins(
             color: themeData.secondaryHeaderColor,
             fontWeight: FontWeight.bold,
-            fontSize: size.width * 0.055,
+            fontSize: size.width * 0.045,
           ),
         ),
       ),
@@ -25,12 +27,17 @@ Row buildCategory(String text, size, ThemeData themeData) {
           top: size.height * 0.03,
           right: size.width * 0.05,
         ),
-        child: Text(
-          'View All',
-          textAlign: TextAlign.center,
-          style: GoogleFonts.poppins(
-            color: themeData.primaryColor.withOpacity(0.8),
-            fontSize: size.width * 0.04,
+        child: GestureDetector(
+          onTap: () {
+            Provider.of<ProductProvider>(context, listen: false).getProducts();
+          },
+          child: Text(
+            'View All',
+            textAlign: TextAlign.center,
+            style: GoogleFonts.poppins(
+              color: themeData.primaryColor.withOpacity(0.8),
+              fontSize: size.width * 0.04,
+            ),
           ),
         ),
       ),

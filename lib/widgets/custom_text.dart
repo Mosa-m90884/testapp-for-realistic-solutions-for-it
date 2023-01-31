@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class CustomText extends StatelessWidget {
   final String text;
@@ -7,15 +8,16 @@ class CustomText extends StatelessWidget {
   final double fontSize;
 
   final Color color;
-
+  final TextStyle? style;
   final Alignment alignment;
 
-  final int ? maxLine;
+  final int? maxLine;
   final double height;
 
   CustomText({
+    this.style = null,
     this.text = '',
-    this.fontSize = 16,
+    this.fontSize = 12,
     this.color = Colors.black,
     this.alignment = Alignment.topLeft,
     this.maxLine,
@@ -28,13 +30,13 @@ class CustomText extends StatelessWidget {
       alignment: alignment,
       child: Text(
         text,
-        overflow: TextOverflow.ellipsis,
-
-        style: TextStyle(fontStyle: FontStyle.normal,
-          color: color,
-          height: height,
-          fontSize: fontSize,
-        ),
+        style: style == null
+            ? GoogleFonts.poppins(
+                color: color,
+                fontWeight: FontWeight.bold,
+                fontSize: fontSize,
+              )
+            : style,
         maxLines: maxLine,
       ),
     );

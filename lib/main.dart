@@ -1,14 +1,12 @@
-import 'package:device_preview/device_preview.dart';
+import 'package:get_storage/get_storage.dart';
+import 'config/app_theme.dart';
 import 'imports.dart';
 
 Future<void> main() async {
+  await GetStorage.init();
+  Api.initializeInterceptors();
   runApp(
-    kIsWeb
-        ? DevicePreview(
-      enabled: !kReleaseMode,
-      builder: (context) => MyApp(), // Wrap your app
-    )
-        : MyApp(),
+    MyApp(),
   );
 }
 
@@ -18,18 +16,16 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
-      providers: [ChangeNotifierProvider.value(value: CartItems()),
+      providers: [
+        ChangeNotifierProvider.value(value: AuthController()),
         ChangeNotifierProvider.value(value: ProductProvider()),
-        ChangeNotifierProvider.value(value: OrderProvider())],
+        ChangeNotifierProvider.value(value: OrderProvider())
+      ],
       child: MaterialApp(
         title: 'Super Store',
         debugShowCheckedModeBanner: false,
-        theme: ThemeData(
-          scaffoldBackgroundColor: Colors.white,
-          appBarTheme: AppBarTheme(
-            iconTheme: IconThemeData(color: Colors.black),
-          ),
-        ),
+        theme: lightModeTheme,
+        darkTheme: darkModeTheme,
         home: Splash(),
       ),
     );

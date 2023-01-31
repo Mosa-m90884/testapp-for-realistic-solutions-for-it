@@ -1,10 +1,9 @@
-import 'package:untitled1/imports.dart';
+import 'package:untitled1/model/order.dart';
 
-class ProductResponse {
-  late List<Product> products = [];
+class OrderResponse {
+  late List<Order> orders = [];
 
-  ProductResponse.fromJson(Map<String, dynamic> json) {
-    json['data']
-        .forEach((product) => products.add(Product.fromJson(product)));
+  OrderResponse.fromJson(Map<String, dynamic> json) {
+    json['data'].forEach((order) => orders.add(Order.fromJson(order)));
   }
 } //end of response

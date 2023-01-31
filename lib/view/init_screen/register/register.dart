@@ -1,3 +1,6 @@
+import 'package:flutter/material.dart';
+import 'package:progress_dialog_null_safe/progress_dialog_null_safe.dart';
+import 'package:untitled1/view/init_screen/Main.dart';
 import '../../../imports.dart';
 
 class Register extends StatefulWidget {
@@ -6,6 +9,11 @@ class Register extends StatefulWidget {
 }
 
 class _RegisterState extends State<Register> {
+  final TextEditingController _nameController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _cpasswordController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -18,24 +26,87 @@ class _RegisterState extends State<Register> {
             children: [
               AppName(),
               const SizedBox(height: 30.0),
-              TextBuilder(text: 'Create Account', fontSize: 30.0, fontWeight: FontWeight.bold),
+              TextBuilder(
+                  text: 'Create Account',
+                  fontSize: 30.0,
+                  fontWeight: FontWeight.bold),
               const SizedBox(height: 20.0),
-              CustomTextField(labelText: 'Full Name', hintText: 'John Doe', prefixIcon: Icons.person),
+              CustomTextField(
+                  labelText: 'name',
+                  controller: _nameController,
+                  hintText: 'name',
+                  prefixIcon: Icons.email),
               const SizedBox(height: 20.0),
-              CustomTextField(labelText: 'Email', hintText: 'example@example.com', prefixIcon: Icons.email),
+              CustomTextField(
+                  labelText: 'Email',
+                  controller: _emailController,
+                  hintText: 'example@example.com',
+                  prefixIcon: Icons.email),
               const SizedBox(height: 20.0),
-              CustomTextField(labelText: 'Password', hintText: 'Password', prefixIcon: Icons.lock),
+              CustomTextField(
+                  labelText: 'Password',
+                  controller: _passwordController,
+                  hintText: 'Password',
+                  prefixIcon: Icons.lock),
               const SizedBox(height: 20.0),
-              CustomTextField(labelText: 'Confirm Password', hintText: 'Confirm Password', prefixIcon: Icons.lock),
+              CustomTextField(
+                  labelText: 'Confirm Password',
+                  controller: _cpasswordController,
+                  hintText: 'Confirm Password',
+                  prefixIcon: Icons.lock),
               const SizedBox(height: 30.0),
               Center(
                 child: MaterialButton(
                   height: 55.0,
                   color: Colors.black,
                   minWidth: 250,
-                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-                  onPressed: () {
-                    Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (_) => Home()), (route) => false);
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12)),
+                  onPressed: () async {
+                    ProgressDialog pr = ProgressDialog(
+                      context,
+                      type: ProgressDialogType.normal,
+                      isDismissible: true,
+
+                      /// your body here
+                      customBody: LinearProgressIndicator(
+                        valueColor:
+                            AlwaysStoppedAnimation<Color>(Colors.blueAccent),
+                        backgroundColor: Colors.white,
+                      ),
+                    );
+                    print(_emailController.text);
+                    ScaffoldMessengerState Msg = ScaffoldMessenger.of(context);
+                    if (
+                    _nameController.text !=null&&
+                    _emailController.text != '' &&
+                        _passwordController.text != '' &&
+                        _cpasswordController.text != '') {
+                      pr.show();
+                   await   Provider.of<AuthController>(context, listen: false)
+                          .register(loginData: {
+                            'name':_nameController.text,
+                        'email': _emailController.text,
+                        'password': _passwordController.text,
+                        'c_password': _cpasswordController.text
+                      });
+                      if (Provider.of<AuthController>(context, listen: false)
+                          .isLoggedIn) {
+                        pr.hide();
+                        Provider.of<ProductProvider>(context, listen: false)
+                            .getProducts();
+                        Navigator.push(context,
+                            MaterialPageRoute(builder: (_) => MainPage()));
+                      }
+
+                    } else {
+                      Msg.showSnackBar(
+                        const SnackBar(
+                            backgroundColor: Colors.red,
+                            content:
+                                TextBuilder(text: 'The fields is required')),
+                      );
+                    }
                   },
                   child: TextBuilder(
                     text: 'Sign Up',
@@ -55,7 +126,8 @@ class _RegisterState extends State<Register> {
                   ),
                   InkWell(
                     onTap: () {
-                      Navigator.push(context, MaterialPageRoute(builder: (_) => Login()));
+                      Navigator.push(
+                          context, MaterialPageRoute(builder: (_) => Login()));
                     },
                     child: TextBuilder(
                       text: 'Sign In',

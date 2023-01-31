@@ -4,7 +4,7 @@
    <application
         android:label="test_app"
         android:name="${applicationName}"
-        android:icon="@mipmap/order_done">
+        android:icon="@mipmap/car2">
         <activity
             android:name=".MainActivity"
             android:exported="true"

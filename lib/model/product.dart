@@ -1,63 +1,36 @@
-import '../../imports.dart';
-
-import 'dart:convert';
-
 class Product {
-  Product({
-    this.id,
-    this.title,
-    this.price,
-    this.description,
-    this.category,
-    this.image,
-    this.rating,
-  });
-
   int? id;
   String? title;
-  double? price;
   String? description;
-  String? category;
-  String? image;
-  Rating? rating;
-
-  factory Product.fromJson(Map<String, dynamic> json) => Product(
-        id: json["id"] == null ? null : json["id"],
-        title: json["title"] == null ? null : json["title"],
-        price: json["price"] == null ? null : json["price"].toDouble(),
-        description: json["description"] == null ? null : json["description"],
-        category: json["category"] == null ? null : json["category"],
-        image: json["image"] == null ? null : json["image"],
-        rating: json["rating"] == null ? null : Rating.fromJson(json["rating"]),
-      );
-
-  Map<String, dynamic> toJson() => {
-        "id": id == null ? null : id,
-        "title": title == null ? null : title,
-        "price": price == null ? null : price,
-        "description": description == null ? null : description,
-        "category": category == null ? null : category,
-        "image": image == null ? null : image,
-        "rating": rating == null ? null : rating!.toJson(),
-      };
-}
-
-class Rating {
-  Rating({
-    this.rate,
-    this.count,
-  });
-
+ late String image;
+  int? comments;
   double? rate;
-  int? count;
+  String? createdAt;
+  String? updatedAt;
 
-  factory Rating.fromJson(Map<String, dynamic> json) => Rating(
-        rate: json["rate"] == null ? null : json["rate"].toDouble(),
-        count: json["count"] == null ? null : json["count"],
-      );
+  Product({this.id, this.title, this.description, this.comments, this.rate, this.createdAt, this.updatedAt});
 
-  Map<String, dynamic> toJson() => {
-        "rate": rate == null ? null : rate,
-        "count": count == null ? null : count,
-      };
+  Product.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
+    title = json['title'];
+    description = json['description'];
+    image = json['image'];
+    comments = json['comments'];
+    rate = json['rate'].toDouble();
+    createdAt = json['created_at'];
+    updatedAt = json['updated_at'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['id'] = this.id;
+    data['title'] = this.title;
+    data['description'] = this.description;
+    data['image'] = this.image;
+    data['comments'] = this.comments;
+    data['rate'] = this.rate;
+    data['created_at'] = this.createdAt;
+    data['updated_at'] = this.updatedAt;
+    return data;
+  }
 }

@@ -54,4 +54,16 @@ class ProductProvider with ChangeNotifier {
     notifyListeners();
 
   }
+  Future<void> filterProduct(Map<String,dynamic> data) async {
+    var response = await Api.productFilter(data: data);
+    print(response);
+    productResponse = ProductResponse.fromJson(response.data);
+    _products.clear();
+    _products.addAll(productResponse.products);
+    // print('${products[1].title}');
+
+    notifyListeners();
+
+    notifyListeners();
+  }
 }

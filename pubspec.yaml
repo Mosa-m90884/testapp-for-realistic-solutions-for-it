@@ -36,9 +36,12 @@ dependencies:
   cupertino_icons: ^1.0.2
   http: any
   provider:
+  get_storage: any
   dio: any
-  google_fonts:
-  device_preview:
+  google_fonts: ^2.2.0
+  unicons: any
+  flutter_rating_bar:
+  progress_dialog_null_safe: ^1.0.7
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -63,5 +66,7 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
-    - images/rupee-indian.png
-    - images/about_us.png
+    - images/
+    - images/icons/
+    - images/image/
+
